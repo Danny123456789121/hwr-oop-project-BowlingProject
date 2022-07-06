@@ -9,7 +9,7 @@ public class Game {
         rolls[currentRoll++] = pins;
     }
 
-    public int score() {
+    public int calculateScore() {
         int score = 0;
         int frameIndex = 0;
         for (int frame = 0; frame < 10; frame++)
@@ -31,18 +31,18 @@ public class Game {
     }
 
     private boolean isSpare(int frameIndex) {
-        return rolls[frameIndex] + rolls[frameIndex+1] == 10;
+        return rolls[frameIndex] + rolls[frameIndex + 1] == 10;
     }
 
     private int sumOfBallsInFrame(int frameIndex) {
-        return rolls[frameIndex] + rolls[frameIndex+1];
+        return rolls[frameIndex] + rolls[frameIndex + 1];
     }
 
     private int spareBonus(int frameIndex) {
-        return rolls[frameIndex+2];
+        return rolls[frameIndex + 2];
     }
 
     private int strikeBonus(int frameIndex) {
-        return rolls[frameIndex+1] + rolls[frameIndex+2];
+        return rolls[frameIndex + 1] + rolls[frameIndex + 2];
     }
 }

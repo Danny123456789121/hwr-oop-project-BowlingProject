@@ -1,32 +1,31 @@
 package hwr.oop;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class BowlingTest {
-    Game game = new Game();
 
-    @Nested
-    class IsInstanceOfTest {
-        @Test
-        void testInstances() {
-            assertThat(game).isInstanceOf(Game.class);
-        }
+    private Game game;
+
+    @BeforeEach
+    void init() {
+        game = new Game();
+    }
+
+    @Test
+    void testInstances() {
+        assertThat(game).isInstanceOf(Game.class);
     }
 
     @Nested
     class GameTests {
-        @Test
-        void getWorstGame() {
-            rollMany(20,0);
-            assertThat(game.score()).isZero();
-        }
 
         @Test
         void isValidGame() {
-            rollMany(20,1);
+            rollMany(20, 1);
             //ToDo
         }
 
@@ -36,26 +35,32 @@ public class BowlingTest {
         }
 
         @Test
-        void getPerfectGame() {
-            rollMany(12,10);
-            assertThat(game.score()).isEqualTo(300);
+        void calculateScore_isWorstGame_finalScoreIsZero() {
+            rollMany(20, 0);
+            assertThat(game.calculateScore()).isZero();
         }
 
         @Test
-        void isStrike() {
+        void calculateScore_perfectGame_maxPoints() {
+            rollMany(12, 10);
+            assertThat(game.calculateScore()).isEqualTo(300);
+        }
+
+        @Test
+        void calculateScore_isStrike_rollScoreIncludesNextTwoRolls() {
             rollStrike();
             game.roll(4);
             game.roll(3);
-            rollMany(16,0);
-            assertThat(game.score()).isEqualTo(24);
+            rollMany(16, 0);
+            assertThat(game.calculateScore()).isEqualTo(24);
         }
 
         @Test
-        void isSpare() {
+        void calculateScore_isSpare_rollScoreIncludesNextRoll() {
             rollSpare();
             game.roll(4);
-            rollMany(17,0);
-            assertThat(game.score()).isEqualTo(18);
+            rollMany(17, 0);
+            assertThat(game.calculateScore()).isEqualTo(18);
         }
     }
 
