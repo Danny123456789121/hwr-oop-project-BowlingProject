@@ -20,8 +20,7 @@ The biggest problems in the implementation were a well arranged console output a
 
 | Number |          Feature            | Tests          |
 |--------|-----------------------------|----------------|
-| 1      | 10-Pin Bowling Ruleset      |       yes      |
-|--------|-----------------------------|----------------|
-| 2      | 9-Pin Bowling Variant       |       yes      |
-|--------|-----------------------------|----------------|
-| 3      | Bowlinggame Console output  |  unnecessary   |
+|   1    |   10-Pin Bowling Ruleset    |       yes      |
+|   2    |    9-Pin Bowling Variant    |       yes      |
+|   3    | Bowling game console output |  unnecessary   |
+
