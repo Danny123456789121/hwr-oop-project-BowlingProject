@@ -1,5 +1,6 @@
 package hwr.oop;
 
+import java.sql.SQLOutput;
 import java.util.Arrays;
 
 public class Game {
@@ -21,11 +22,11 @@ public class Game {
         frameIndex = 0;
         for (int frame = 0; frame < 10; frame++)
             if (isStrike(frameIndex)) {
+                printer.printStrike();
                 score += 10 + strikeBonus(frameIndex);
                 frameIndex++;
             } else if (isSpare(frameIndex)) {
-                System.out.print(rolls[frameIndex] + " ");
-                printer.printSpare();
+                printer.printSpare(rolls[frameIndex]);
                 score += 10 + spareBonus(frameIndex);
                 frameIndex += 2;
             } else {
@@ -37,8 +38,19 @@ public class Game {
                 }
                 frameIndex += 2;
             }
-        System.out.println("frameIndex" + frameIndex);
+        printLastFrame();
+        //System.out.println("frameIndex" + frameIndex);
         return score;
+    }
+
+    private void printLastFrame() {
+        if (isStrike(frameIndex-2) || isSpare(frameIndex-2)){
+            if (rolls[frameIndex] == 10) {
+                printer.printStrike();
+            } else {
+                System.out.println(rolls[frameIndex]);
+            }
+        }
     }
 
     private boolean isStrike(int frameIndex) {
@@ -62,11 +74,13 @@ public class Game {
     }
 
     private int strikeBonus(int frameIndex) {
+        /*
         if(frameIndex/2 == 9) {
             System.out.println(rolls[frameIndex] + "\n" + rolls[frameIndex + 1] + "\n" + rolls[frameIndex + 2]);
         }else{
             printer.printStrike();
         }
+         */
         return rolls[frameIndex + 1] + rolls[frameIndex + 2];
     }
 

@@ -15,8 +15,8 @@ public class PrintScore {
         System.out.println("X");
     }
 
-    public void printSpare(){
-        System.out.println("/");
+    public void printSpare(int n){
+        System.out.println(n + " /");
     }
 
 }
