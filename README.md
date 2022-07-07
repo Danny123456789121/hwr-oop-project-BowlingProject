@@ -13,10 +13,23 @@ The features of this project are a full implementation of the classic 10-pin bow
 
 The biggest problems in the implementation were a well arranged console output and the implementation of the 10-pin bowling rules, because a thrown strike or spare has to wait for the results of the next throws, as they are included in the final calculation of the throw.
 
+> Berg- und Talfahrt Rules: 
+> <br/>
+> + There are no bonus points like strike or spare. 
+> + If 9 Pins are knocked down the Frame is over
+> 
+> Even Frames:
+> * goal is to get the lowest possible score Frame (-1)
+> * the achieved score in a frame will be subtracted from the total score
+> * if no pins are knocked down, 9 points are deducted from the total score
+> 
+> Odd Frames:
+> * goal is to get the highest possible score in a Frame (9)
+> * the achieved score in a frame will be added to the total score
+> * if no pins are knocked down, 0 points are added to the total score
 
 ## Feature List
 
-[TODO]: # (For each feature implemented, add a row to the table!)
 
 | Number |          Feature            | Tests          |
 |--------|-----------------------------|----------------|
