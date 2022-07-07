@@ -23,18 +23,26 @@ public class BowlingGame implements Game {
         for (int frame = 0; frame < 10; frame++)
             if (isStrike(frameIndex)) {
                 score += 10 + strikeBonus(frameIndex);
-                printer.printStrike(score);
+                if (frame == 9){
+                    printer.printStrike();
+                } else {
+                    printer.printStrike(score);
+                }
                 frameIndex++;
             } else if (isSpare(frameIndex)) {
                 score += 10 + spareBonus(frameIndex);
-                printer.printSpare(rolls[frameIndex],score);
+                if (frame == 9){
+                    printer.printSpare(rolls[frameIndex]);
+                } else {
+                    printer.printSpare(rolls[frameIndex], score);
+                }
                 frameIndex += 2;
             } else {
                 score += sumOfPinsInFrame(frameIndex);
-                printer.printFrame(rolls[frameIndex], rolls[frameIndex + 1],score);
+                printer.printFrame(rolls[frameIndex], rolls[frameIndex + 1], score);
                 frameIndex += 2;
             }
-        calculateLastFrame();
+        calculateLastFrame(score);
         return score;
     }
 
@@ -46,14 +54,17 @@ public class BowlingGame implements Game {
         throw new InvalidAmountOfPinsRolled("More Pins knocked over than possible");
     }
 
-    //TODO
-    private void calculateLastFrame() {
-        if ((isStrike(frameIndex - 2) || isSpare(frameIndex - 2)) && rolls[frameIndex] == 10) {
+    private void calculateLastFrame(int score) {
+        if (isStrike(frameIndex) && !isSpare(frameIndex-2)) {
             printer.printStrike();
             if (rolls[frameIndex + 1] == 10) {
-                printer.printStrike();
+                printer.printStrike(score);
             }
+        } else if (isSpare(frameIndex-2) && isStrike(frameIndex)) {
+            printer.printStrike(score);
+
         }
+        printer.spacing();
     }
 
     private boolean isStrike(int frameIndex) {
