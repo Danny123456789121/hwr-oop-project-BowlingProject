@@ -5,14 +5,18 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatNoException;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 public class BowlingTest {
 
     private Game game;
+    private PrintScore printer;
 
     @BeforeEach
     void init() {
         game = new Game();
+        printer = new PrintScore(game);
     }
 
     @Test
@@ -24,9 +28,49 @@ public class BowlingTest {
     class GameTests {
 
         @Test
-        void isValidGame() {
-            rollMany(20, 1);
-            //ToDo
+        void ValidGame_example() {
+            game.roll(8);
+            game.roll(2);
+
+            game.roll(5);
+            game.roll(4);
+
+            game.roll(9);
+            game.roll(0);
+
+            rollStrike();
+
+            rollStrike();
+
+            game.roll(5);
+            game.roll(5);
+
+            game.roll(5);
+            game.roll(3);
+
+            game.roll(6);
+            game.roll(3);
+
+            game.roll(9);
+            game.roll(1);
+
+            game.roll(9);
+            game.roll(1);
+            rollStrike();
+
+            assertThat(game.calculateScore()).isEqualTo(149);
+            assertThatNoException().isThrownBy(() -> {
+                game.calculateScore();
+            });
+        }
+
+        @Test
+        void illegalRoll() {
+            game.roll(9);
+            game.roll(9);
+            assertThatThrownBy(() -> game.calculateScore())
+                    .isInstanceOf(RuntimeException.class)
+                    .hasMessageContaining("More Pins knocked over than possible");
         }
 
         @Test
@@ -47,7 +91,7 @@ public class BowlingTest {
         }
 
         @Test
-        void calculateScore_isStrike_rollScoreIncludesNextTwoRolls() {
+        void calculateScore_isStrike_rollscoreIncludesNextTwoRolls() {
             rollStrike();
             game.roll(4);
             game.roll(3);
@@ -56,11 +100,20 @@ public class BowlingTest {
         }
 
         @Test
-        void calculateScore_isSpare_rollScoreIncludesNextRoll() {
+        void calculateScore_isSpare_rollscoreIncludesNextRoll() {
             rollSpare();
             game.roll(4);
             rollMany(17, 0);
             assertThat(game.calculateScore()).isEqualTo(18);
+        }
+
+        @Test
+        void calculateScore_SpareFollowedByStrike_rollscore() {
+            rollSpare();
+            rollStrike();
+            game.roll(4);
+            rollMany(17, 0);
+            assertThat(game.calculateScore()).isEqualTo(38);
         }
     }
 
