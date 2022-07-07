@@ -1,22 +1,20 @@
 package hwr.oop;
 
 public class PrintScore {
-    private Game game;
 
-    public PrintScore(Game game) {
-        this.game = game;
-    }
-
-    public void printRoll(){
-        System.out.println();
+    public void printFrame(int rollOne, int rollTwo, int score){
+        System.out.println(rollOne + " " + rollTwo + " = " + score);
     }
 
     public void printStrike(){
         System.out.println("X");
     }
 
-    public void printSpare(int n){
-        System.out.println(n + " /");
+    public void printStrike(int score){
+        System.out.println("X" + " = " + score);
     }
 
+    public void printSpare(int firstSpareNumber, int score){
+        System.out.println(firstSpareNumber + " /" + " = " + score);
+    }
 }
