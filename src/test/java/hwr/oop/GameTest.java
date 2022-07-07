@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatNoException;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
-public class GameTest {
+class GameTest {
 
     private Game bowlingGame;
     private Game kegelGame;
@@ -23,6 +23,12 @@ public class GameTest {
     void testInstances() {
         assertThat(bowlingGame).isInstanceOf(Game.class);
         assertThat(kegelGame).isInstanceOf(Game.class);
+    }
+
+    private void rollMany(int n, int pins, Game gameType) {
+        for (int i = 0; i < n; i++) {
+            gameType.roll(pins);
+        }
     }
 
     @Nested
@@ -208,12 +214,6 @@ public class GameTest {
         }
 
 
-    }
-
-    private void rollMany(int n, int pins, Game gameType) {
-        for (int i = 0; i < n; i++) {
-            gameType.roll(pins);
-        }
     }
 
 }

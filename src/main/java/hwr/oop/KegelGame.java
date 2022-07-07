@@ -21,24 +21,24 @@ public class KegelGame implements Game {
         int frameIndex = 0;
         for (int frame = 1; frame < 9; frame++)
             if (frame % 2 == 0) {
-                if(sumOfPinsInFrame(frameIndex) == 0){
+                if (sumOfPinsInFrame(frameIndex) == 0) {
                     score -= 9;
                     printer.printFrame(rolls[frameIndex], rolls[frameIndex + 1], score);
-                }else if(isStrike(frameIndex)) {
+                } else if (isStrike(frameIndex)) {
                     score -= 9;
                     printer.printStrike(score);
                     frameIndex--;
-                }else{
+                } else {
                     score -= sumOfPinsInFrame(frameIndex);
                     printer.printFrame(rolls[frameIndex], rolls[frameIndex + 1], score);
                 }
                 frameIndex += 2;
             } else {
-                if(isStrike(frameIndex)) {
+                if (isStrike(frameIndex)) {
                     score += 9;
                     printer.printStrike(score);
                     frameIndex++;
-                }else {
+                } else {
                     score += sumOfPinsInFrame(frameIndex);
                     printer.printFrame(rolls[frameIndex], rolls[frameIndex + 1], score);
                     frameIndex += 2;
@@ -56,7 +56,7 @@ public class KegelGame implements Game {
         throw new InvalidAmountOfPinsRolled("More Pins knocked over than possible");
     }
 
-    private boolean isStrike(int frameIndex){
+    private boolean isStrike(int frameIndex) {
         return rolls[frameIndex] == 9;
     }
 }

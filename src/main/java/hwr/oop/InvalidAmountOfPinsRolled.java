@@ -1,8 +1,8 @@
 package hwr.oop;
 
-public class InvalidAmountOfPinsRolled extends RuntimeException{
+public class InvalidAmountOfPinsRolled extends RuntimeException {
 
-    public InvalidAmountOfPinsRolled(String message){
+    public InvalidAmountOfPinsRolled(String message) {
         super(message);
 
     }

@@ -23,7 +23,7 @@ public class BowlingGame implements Game {
         for (int frame = 0; frame < 10; frame++)
             if (isStrike(frameIndex)) {
                 score += 10 + strikeBonus(frameIndex);
-                if (frame == 9){
+                if (frame == 9) {
                     printer.printStrike();
                 } else {
                     printer.printStrike(score);
@@ -31,7 +31,7 @@ public class BowlingGame implements Game {
                 frameIndex++;
             } else if (isSpare(frameIndex)) {
                 score += 10 + spareBonus(frameIndex);
-                if (frame == 9){
+                if (frame == 9) {
                     printer.printSpare(rolls[frameIndex]);
                 } else {
                     printer.printSpare(rolls[frameIndex], score);
@@ -55,12 +55,12 @@ public class BowlingGame implements Game {
     }
 
     private void calculateLastFrame(int score) {
-        if (isStrike(frameIndex) && !isSpare(frameIndex-2)) {
+        if (isStrike(frameIndex) && !isSpare(frameIndex - 2)) {
             printer.printStrike();
             if (rolls[frameIndex + 1] == 10) {
                 printer.printStrike(score);
             }
-        } else if (isSpare(frameIndex-2) && isStrike(frameIndex)) {
+        } else if (isSpare(frameIndex - 2) && isStrike(frameIndex)) {
             printer.printStrike(score);
 
         }
