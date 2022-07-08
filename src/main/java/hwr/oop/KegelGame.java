@@ -44,7 +44,7 @@ public class KegelGame implements Game {
                     frameIndex += 2;
                 }
             }
-        printer.spacing();
+        printer.printSpacing();
         return score;
     }
 

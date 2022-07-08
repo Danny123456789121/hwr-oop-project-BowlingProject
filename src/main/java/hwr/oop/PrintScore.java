@@ -22,7 +22,7 @@ public class PrintScore {
         System.out.println(firstSpareNumber + " /" + " = " + score);
     }
 
-    public void spacing() {
+    public void printSpacing() {
         System.out.println("------------------------------");
     }
 }

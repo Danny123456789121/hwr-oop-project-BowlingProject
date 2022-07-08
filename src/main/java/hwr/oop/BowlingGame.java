@@ -64,7 +64,7 @@ public class BowlingGame implements Game {
             printer.printStrike(score);
 
         }
-        printer.spacing();
+        printer.printSpacing();
     }
 
     private boolean isStrike(int frameIndex) {

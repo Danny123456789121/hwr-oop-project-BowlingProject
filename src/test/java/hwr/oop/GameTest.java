@@ -34,7 +34,7 @@ class GameTest {
     @Nested
     class BowlingBowlingGameTests {
         @Test
-        void ValidGame_example() {
+        void calculateScore_PlayValidGame_ScoreCalculatedCorrectlyWithAllRulesApplied() {
             bowlingGame.roll(8);
             bowlingGame.roll(2);
 
@@ -71,39 +71,42 @@ class GameTest {
         }
 
         @Test
-        void testLastFrame() {
+        void calculateScore_RollNoSpareOrStrikeInLastFrame_ThirdRollWillNotBeCounted() {
             rollMany(18, 0, bowlingGame);
             bowlingGame.roll(4);
             bowlingGame.roll(5);
+
+            bowlingGame.roll(4);
+
             assertThat(bowlingGame.calculateScore()).isEqualTo(9);
         }
 
         @Test
-        void illegalFrameScore() {
+        void sumOfPinsInFrame_RollMorePinsThanPossibleInAFrame_RuntimeExceptionThrown() {
             bowlingGame.roll(9);
             bowlingGame.roll(9);
-            assertThatThrownBy(() -> bowlingGame.calculateScore()).isInstanceOf(RuntimeException.class).hasMessageContaining("More Pins knocked over than possible");
+            assertThatThrownBy(() -> bowlingGame.sumOfPinsInFrame(0)).isInstanceOf(RuntimeException.class).hasMessageContaining("More Pins knocked over than possible");
         }
 
         @Test
-        void illegalRoll() {
+        void roll_RollToManyPinsPossible_RuntimeExceptionThrown() {
             assertThatThrownBy(() -> bowlingGame.roll(15)).isInstanceOf(RuntimeException.class).hasMessageContaining("To many pins rolled");
         }
 
         @Test
-        void calculateScore_isWorstGame_finalScoreIsZero() {
+        void calculateScore_RollWorstGame_FinalScoreIsZero() {
             rollMany(20, 0, bowlingGame);
             assertThat(bowlingGame.calculateScore()).isZero();
         }
 
         @Test
-        void calculateScore_perfectGame_maxPoints() {
+        void calculateScore_RollPerfectGame_MaxPoints() {
             rollMany(12, 10, bowlingGame);
             assertThat(bowlingGame.calculateScore()).isEqualTo(300);
         }
 
         @Test
-        void calculateScore_isStrike_rollscoreIncludesNextTwoRolls() {
+        void calculateScore_RollStrike_StrikeAndStrikeBonusReflectedInScore() {
             rollStrike();
             bowlingGame.roll(4);
             bowlingGame.roll(3);
@@ -112,7 +115,7 @@ class GameTest {
         }
 
         @Test
-        void calculateScore_isSpare_rollscoreIncludesNextRoll() {
+        void calculateScore_RollSpare_SpareAndSpareBonusReflectedInScore() {
             rollSpare();
             bowlingGame.roll(4);
             rollMany(17, 0, bowlingGame);
@@ -120,7 +123,7 @@ class GameTest {
         }
 
         @Test
-        void calculateScore_SpareFollowedByStrike_rollscore() {
+        void calculateScore_RollSpareFollowedByStrike_SpareAndStrikeAreReflectedInScore() {
             rollSpare();
             rollStrike();
             bowlingGame.roll(4);
@@ -142,7 +145,7 @@ class GameTest {
     class KegelGameTests {
 
         @Test
-        void ValidGame_example() {
+        void calculateScore_PlayValidGame_ScoreCalculatedCorrectlyWithAllRulesApplied() {
             kegelGame.roll(4);
             kegelGame.roll(2);
 
@@ -174,7 +177,7 @@ class GameTest {
         }
 
         @Test
-        void calculateScore_perfectGame_maxPoints() {
+        void calculateScore_RollPerfectGame_MaxPoints() {
             for (int frame = 1; frame < 9; frame++) {
                 if (frame % 2 == 0) {
                     kegelGame.roll(0);
@@ -188,7 +191,7 @@ class GameTest {
         }
 
         @Test
-        void calculateScore_worstGame_maxPoints() {
+        void calculateScore_RollWorstGame_WorstScore() {
             for (int frame = 1; frame < 9; frame++) {
                 if (frame % 2 == 0) {
                     kegelGame.roll(9);
@@ -202,14 +205,14 @@ class GameTest {
         }
 
         @Test
-        void illegalFrameScore() {
+        void sumOfPinsInFrame_RollMorePinsThanPossibleInAFrame_RuntimeExceptionThrown() {
             kegelGame.roll(7);
             kegelGame.roll(7);
-            assertThatThrownBy(() -> kegelGame.calculateScore()).isInstanceOf(RuntimeException.class).hasMessageContaining("More Pins knocked over than possible");
+            assertThatThrownBy(() -> kegelGame.sumOfPinsInFrame(0)).isInstanceOf(RuntimeException.class).hasMessageContaining("More Pins knocked over than possible");
         }
 
         @Test
-        void illegalRoll() {
+        void roll_RollToManyPinsPossible_RuntimeExceptionThrown() {
             assertThatThrownBy(() -> kegelGame.roll(15)).isInstanceOf(RuntimeException.class).hasMessageContaining("To many pins rolled");
         }
 
