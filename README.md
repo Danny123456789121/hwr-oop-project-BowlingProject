@@ -9,7 +9,7 @@ This repository contains a student project created for an ongoing lecture on obj
 
 This project implements the classic bowling kata in Java with 100% test coverage.
 
-The features of this project are a full implementation of the classic 10-pin bowling scoring system, an alternate 9-pin scoring system based on "Berg- und Talfahrt" variant and a console output for the bowling game
+The features of this project are a full implementation of the classic 10-pin bowling scoring system, an alternate 9-pin scoring system based on "Berg- und Talfahrt" variant and a console output for the bowling game.
 
 The biggest problems in the implementation were a well arranged console output and the implementation of the 10-pin bowling rules, because a thrown strike or spare has to wait for the results of the next throws, as they are included in the final calculation of the throw.
 
